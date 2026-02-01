@@ -1,17 +1,20 @@
-# Use OpenJDK 17 slim
-FROM openjdk:17-jdk-slim
+# Use valid OpenJDK 17 slim
+FROM openjdk:17.0.8-jdk-slim
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Copy everything from backend folder into container
+# Copy backend files
 COPY . .
 
-# Build the Spring Boot project with Maven (skip tests)
+# Make Maven wrapper executable
+RUN chmod +x mvnw
+
+# Build the Spring Boot project
 RUN ./mvnw clean package -DskipTests
 
-# Expose the port the app will run on
+# Expose port
 EXPOSE 8080
 
-# Run the JAR file
+# Run the JAR (replace jar name if different)
 CMD ["java", "-jar", "target/hotel-management-system-0.0.1-SNAPSHOT.jar"]
