@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 RUN chmod +x mvnw
-RUN ./mvnw clean package -DskipTests
+RUN ./mvnw -q -DskipTests clean package
 
 EXPOSE 4040
 
