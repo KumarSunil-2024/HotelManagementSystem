@@ -2,6 +2,7 @@ package in.hotel.config;
 
 import in.hotel.entity.User;
 import in.hotel.repo.UserRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,7 @@ public class DataInitializer {
     ) {
         return args -> {
 
-            // check if admin already exists
+            // create admin only if not exists
             if (userRepository.existsByEmail("admin@hotel.com")) {
                 return;
             }
@@ -27,7 +28,6 @@ public class DataInitializer {
             admin.setEmail("admin@hotel.com");
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setRole("ADMIN");
-            admin.setEnabled(true);
 
             userRepository.save(admin);
 
